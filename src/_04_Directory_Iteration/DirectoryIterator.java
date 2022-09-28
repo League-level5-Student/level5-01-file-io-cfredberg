@@ -1,6 +1,8 @@
 package _04_Directory_Iteration;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.JFileChooser;
 
@@ -29,5 +31,34 @@ public class DirectoryIterator {
 		 * Be aware of possible directories inside of directories.
 		 * (e.g //Copyright © 2019 FirstName LastName)
 		 */
+		
+		DirectoryIterator di = new DirectoryIterator();
+		
+		returnVal = jfc.showOpenDialog(null);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			File directory = jfc.getSelectedFile();
+			di.recursion(directory);
+		}
+	}
+	
+	public void recursion(File directory) {
+		if (directory.isDirectory()) {
+			File[] files = directory.listFiles();
+			for (File file : files) {
+				recursion(file);
+			}
+		}else {
+			if (directory.getName().endsWith(".java")) {
+				try {
+					FileWriter fw = new FileWriter(directory.getAbsolutePath(), true);
+					fw.write("//Copyright © 2022 Charlie Fredberg");
+					fw.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 }
+//Copyright © 2022 Charlie Fredberg

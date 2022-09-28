@@ -3,6 +3,9 @@ package _03_To_Do_List;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -93,12 +96,33 @@ public class ToDoList implements ActionListener {
 					}
 					fw.append('\n');
 				}
+				
+				fw.close();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}else if (e.getSource() == loadList) {
-			
+			try {
+				BufferedReader fr = new BufferedReader(new FileReader("src/_03_To_Do_List/file.txt"));
+				
+				tasks = new ArrayList<String>();
+				
+				String line = fr.readLine();
+				while (line != null) {
+					tasks.add(line);
+					line = fr.readLine();
+				}
+				
+				fr.close();
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 }
+//Copyright © 2022 Charlie Fredberg

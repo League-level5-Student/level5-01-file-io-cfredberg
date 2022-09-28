@@ -59,3 +59,4 @@ public class FileDecryptor {
 		}
 	}
 }
+//Copyright © 2022 Charlie Fredberg
